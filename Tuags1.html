@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penghitung Kembalian</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .deskripsi {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2196f3;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: #1976d2;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0d47a1;
+        }
+
+        #hasil {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .berhasil {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .gagal {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>💰 Penghitung Kembalian</h1>
+
+        <p class="deskripsi">
+            Masukkan total belanja dan jumlah uang yang dibayarkan.
+        </p>
+
+        <label for="harga">Total Belanja (Rp)</label>
+        <input type="number" id="harga" placeholder="Contoh: 25000">
+
+        <label for="bayar">Uang Dibayar (Rp)</label>
+        <input type="number" id="bayar" placeholder="Contoh: 50000">
+
+        <button id="hitungBtn">Hitung Kembalian</button>
+
+        <div id="hasil"></div>
+    </div>
+
+    <script>
+        // Variabel yang digunakan untuk menyimpan data
+        let totalBelanja = 0;
+        let uangDibayar = 0;
+
+        // Fungsi untuk menghitung kembalian
+        function hitungKembalian() {
+            // Konversi input dari string menjadi Number
+            totalBelanja = Number(document.getElementById("harga").value);
+            uangDibayar = Number(document.getElementById("bayar").value);
+
+            const hasil = document.getElementById("hasil");
+
+            // Validasi input
+            if (totalBelanja <= 0 || uangDibayar <= 0) {
+                hasil.innerText = "⚠️ Silakan masukkan jumlah uang yang valid!";
+                hasil.className = "gagal";
+                hasil.style.display = "block";
+            } 
+            else if (uangDibayar < totalBelanja) {
+                hasil.innerText = "❌ Uang yang dibayarkan masih kurang!";
+                hasil.className = "gagal";
+                hasil.style.display = "block";
+            } 
+            else {
+                const kembalian = uangDibayar - totalBelanja;
+
+                hasil.innerText =
+                    "✅ Kembalian Anda: Rp " +
+                    kembalian.toLocaleString("id-ID");
+
+                hasil.className = "berhasil";
+                hasil.style.display = "block";
+            }
+        }
+
+        // Fungsi untuk menghapus input dan hasil
+        function resetForm() {
+            document.getElementById("harga").value = "";
+            document.getElementById("bayar").value = "";
+
+            const hasil = document.getElementById("hasil");
+            hasil.innerText = "";
+            hasil.style.display = "none";
+        }
+
+        // Event handler menggunakan addEventListener
+        document.getElementById("hitungBtn").addEventListener(
+            "click",
+            hitungKembalian
+        );
+    </script>
+
+</body>
+</html>
