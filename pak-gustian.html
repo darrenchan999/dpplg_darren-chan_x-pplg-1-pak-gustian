@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Pak Gustian</title>
+    <style>
+        /* Desain tampilan biar rapi dan enak dilihat */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .kotak-kalkulator {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 320px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .form-input {
+            margin-bottom: 15px;
+        }
+
+        .form-input label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Biar input tidak luber keluar kotak */
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2ecc71; /* Warna hijau segar */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        .kotak-hasil {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed #ddd;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="kotak-kalkulator">
+        <h2>Tugas Pak Gustian</h2>
+        
+        <!-- Kolom Input Nilai -->
+        <div class="form-input">
+            <label>Nilai Tugas (40%)</label>
+            <input type="number" id="inputTugas" placeholder="Contoh: 85">
+        </div>
+        
+        <div class="form-input">
+            <label>Nilai UTS (30%)</label>
+            <input type="number" id="inputUTS" placeholder="Contoh: 80">
+        </div>
+        
+        <div class="form-input">
+            <label>Nilai UAS (30%)</label>
+            <input type="number" id="inputUAS" placeholder="Contoh: 90">
+        </div>
+
+        <!-- Tombol untuk memicu hitungan -->
+        <button onclick="tombolKlik()">Hitung Nilai</button>
+
+        <!-- Tempat untuk menampilkan hasil -->
+        <div id="tempatHasil" class="kotak-hasil"></div>
+    </div>
+
+    <script>
+        // 1. Fungsi Utama untuk menghitung rata-rata berdasarkan bobot persen
+        function hitungRataRata(tugas, uts, uas) {
+            let totalTugas = tugas * 0.4;
+            let totalUTS = uts * 0.3;
+            let totalUAS = uas * 0.3;
+            
+            let hasilAkhir = totalTugas + totalUTS + totalUAS;
+            return hasilAkhir;
+        }
+
+        // 2. Fungsi yang berjalan ketika tombol di-klik
+        function tombolKlik() {
+            // Mengambil angka dari input HTML
+            let nilaiTugas = Number(document.getElementById("inputTugas").value);
+            let nilaiUTS = Number(document.getElementById("inputUTS").value);
+            let nilaiUAS = Number(document.getElementById("inputUAS").value);
+
+            // Memanggil fungsi hitungRataRata
+            let rataRata = hitungRataRata(nilaiTugas, nilaiUTS, nilaiUAS);
+            let predikat = "";
+
+            // Menentukan predikat menggunakan struktur IF ELSE
+            if (rataRata >= 85) {
+                predikat = "Sangat Baik";
+            } else if (rataRata >= 75) {
+                predikat = "Baik";
+            } else if (rataRata >= 60) {
+                predikat = "Cukup";
+            } else {
+                predikat = "Perlu Bimbingan";
+            }
+
+            // Menampilkan hasil di browser console (F12) sesuai instruksi tugas
+            console.log("Rata-rata siswa: " + rataRata);
+            console.log("Predikat siswa: " + predikat);
+
+            // Menampilkan hasil langsung di layar HTML agar interaktif
+            document.getElementById("tempatHasil").innerHTML = `
+                <strong>Hasil Analisis:</strong><br>
+                Rata-rata: <b>${rataRata.toFixed(1)}</b><br>
+                Predikat: <b>${predikat}</b>
+            `;
+        }
+    </script>
+
+</body>
+</html>
